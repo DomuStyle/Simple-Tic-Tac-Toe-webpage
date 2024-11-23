@@ -7,10 +7,14 @@
 
     <link rel="icon" href="./assets/icons/tic_tac_toe_640x640.png" alt="tic_tac_toe_favicon">
     <link rel="stylesheet" href="style.css">
-    <script src="./script.js"></script>
+
+    <style>
+        table { border-collapse: collapse; }
+        td { width: 50px; height: 50px; text-align: center; border: 1px solid black; font-size: 24px; }
+    </style>
 </head>
-<body>
-    
+<body onload="init()">
+    <div id="container"></div>
 </body>
 <script src="./script.js"></script>
 </html>
