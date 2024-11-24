@@ -1,12 +1,13 @@
 body {
     font-family: 'Open Sans', sans-serif; /* Schriftart Open Sans */
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     height: 100vh;
     margin: 0;
     background-color: #323232; /* Hintergrundfarbe der gesamten Seite */
     color: #ffffff; /* Standardfarbe für Text (optional) */
+    flex-direction: column;
 }
 
 /* Styling für das Spielfeld */
@@ -53,4 +54,9 @@ td:has(> .cross) {
 /* Styling für O */
 td:has(> .circle) {
     color: #5bc0de; /* Blaues O */
+}
+
+h1 {
+    margin-bottom: 128px;
+    font-size: 64px;
 }
