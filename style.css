@@ -1,0 +1,56 @@
+body {
+    font-family: 'Open Sans', sans-serif; /* Schriftart Open Sans */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #323232; /* Hintergrundfarbe der gesamten Seite */
+    color: #ffffff; /* Standardfarbe für Text (optional) */
+}
+
+/* Styling für das Spielfeld */
+table {
+    border-collapse: collapse; /* Entfernt doppelte Linien an den Zellenrändern */
+     /* Weißer Hintergrund für die Tabelle */
+     /* border: 5px solid #ffffff; Weiße Umrandung der Tabelle */
+}
+
+/* Styling für Zellen */
+td {
+    width: 100px; /* Gleiche Breite für alle Zellen */
+    height: 100px; /* Gleiche Höhe für alle Zellen */
+    text-align: center; /* Zentriert den Inhalt horizontal */
+    vertical-align: middle; /* Zentriert den Inhalt vertikal */
+    font-size: 36px; /* Große Schriftgröße für Symbole */
+    font-weight: bold; /* Symbole fett darstellen */
+     /* Weiße Linien zwischen den Zellen */
+    border-style: none solid solid none; /* Nur innere Trennlinien anzeigen */
+    background-color: #323232;; /* Leicht grauer Hintergrund für Zellen */
+    transition: background-color 0.3s; /* Sanfte Farbänderung bei Hover */
+}
+
+/* Entfernt den unteren Rand der letzten Reihe */
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Entfernt den rechten Rand der letzten Spalte */
+td:last-child {
+    border-right: none;
+}
+
+/* Hover-Effekt für Zellen */
+td:hover {
+    background-color: #222222; /* Leichte Hintergrundänderung beim Hover */
+}
+
+/* Styling für X */
+td:has(> .cross) {
+    color: #d9534f; /* Rotes X */
+}
+
+/* Styling für O */
+td:has(> .circle) {
+    color: #5bc0de; /* Blaues O */
+}
