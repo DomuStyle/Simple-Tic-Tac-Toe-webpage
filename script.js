@@ -30,7 +30,7 @@ function render() {
             } else if (fields[index] === 'cross') {
                 symbol = generateCrossSVG();
             }
-            tableHtml += `<td onclick="handleClick(this, ${index})">${symbol}</td>`;
+            tableHtml += `<td id="cell-${index}" onclick="handleClick(this, ${index})">${symbol}</td>`;
         }
         tableHtml += '</tr>';
     }
@@ -44,7 +44,76 @@ function handleClick(cell, index) {
         fields[index] = currentPlayer;
         cell.innerHTML = currentPlayer === 'circle' ? generateCircleSVG() : generateCrossSVG();
         cell.onclick = null;
-        currentPlayer = currentPlayer === 'circle' ? 'cross' : 'circle';
+        if (checkGameOver()) {
+            drawWinningLine();
+        } else {
+            currentPlayer = currentPlayer === 'circle' ? 'cross' : 'circle';
+        }  
+    }
+}
+
+function checkGameOver() {
+    const winningCombinations = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
+
+    for (const combination of winningCombinations) {
+        const [a, b, c] = combination;
+        if (fields[a] && fields[a] === fields[b] && fields[a] === fields[c]) {
+            // Mark the winning combination
+            winningCombination = combination;
+            return true;
+        }
+    }
+    return false;
+}
+
+let winningCombination = null;
+
+function drawWinningLine() {
+    if (!winningCombination) return;
+
+    const table = document.querySelector('table');
+    const firstCell = document.getElementById(`cell-${winningCombination[0]}`);
+    const lastCell = document.getElementById(`cell-${winningCombination[2]}`);
+
+    const firstRect = firstCell.getBoundingClientRect();
+    const lastRect = lastCell.getBoundingClientRect();
+
+    const line = document.createElement('div');
+    line.style.position = 'absolute';
+    line.style.height = '5px';
+    line.style.backgroundColor = '#90EE90';
+    line.style.zIndex = '10';
+    line.style.transformOrigin = '0 0';
+
+    // Calculate line position and rotation
+    const x1 = firstRect.left + firstRect.width / 2;
+    const y1 = firstRect.top + firstRect.height / 2;
+    const x2 = lastRect.left + lastRect.width / 2;
+    const y2 = lastRect.top + lastRect.height / 2;
+
+    const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+    const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+
+    line.style.width = `${distance}px`;
+    line.style.left = `${x1}px`;
+    line.style.top = `${y1}px`;
+    line.style.transform = `rotate(${angle}deg)`;
+
+    document.body.appendChild(line);
+
+    // Disable further clicks
+    for (let i = 0; i < 9; i++) {
+        const cell = document.getElementById(`cell-${i}`);
+        cell.onclick = null;
     }
 }
 
