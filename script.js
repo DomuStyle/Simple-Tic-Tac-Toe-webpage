@@ -52,6 +52,29 @@ function handleClick(cell, index) {
     }
 }
 
+function resetGame() {
+    fields = [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ];
+    render();
+
+    const line = document.querySelector('.winning-line');
+    if (line) {
+        line.remove();
+    }
+
+    // Reset the winningCombination variable
+    winningCombination = null;
+}
+
 function checkGameOver() {
     const winningCombinations = [
         [0, 1, 2],
@@ -88,6 +111,7 @@ function drawWinningLine() {
     const lastRect = lastCell.getBoundingClientRect();
 
     const line = document.createElement('div');
+    line.classList.add('winning-line'); // Add this line
     line.style.position = 'absolute';
     line.style.height = '5px';
     line.style.backgroundColor = '#90EE90';
